@@ -121,7 +121,7 @@ app/build/install/silica/bin/silica bench
 
 In the window, the mouse paints and the keys 0 to 9 pick a material.
 
-To use the library, `silica-core` is published to GitHub Packages under `dev.aetherx86.silica`.
+To use the library, `silica-core` is published to GitHub Packages under `dev.omakasekim.silica`.
 
 ## How it is tested
 

@@ -1,4 +1,4 @@
-package dev.aetherx86.silica
+package dev.omakasekim.silica
 
 /** How a grid treats cells beyond its edge. */
 enum class Edge { DEAD, TORUS }

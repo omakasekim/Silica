@@ -1,7 +1,7 @@
-package dev.aetherx86.silica.app
+package dev.omakasekim.silica.app
 
-import dev.aetherx86.silica.Material
-import dev.aetherx86.silica.SandWorld
+import dev.omakasekim.silica.Material
+import dev.omakasekim.silica.SandWorld
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Dimension

@@ -1,4 +1,4 @@
-package dev.aetherx86.silica.app
+package dev.omakasekim.silica.app
 
 import java.math.BigInteger
 

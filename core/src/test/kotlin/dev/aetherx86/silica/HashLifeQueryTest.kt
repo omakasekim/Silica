@@ -1,4 +1,4 @@
-package dev.aetherx86.silica
+package dev.omakasekim.silica
 
 import java.math.BigInteger
 import java.util.Random

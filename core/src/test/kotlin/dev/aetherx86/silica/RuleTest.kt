@@ -1,4 +1,4 @@
-package dev.aetherx86.silica
+package dev.omakasekim.silica
 
 import java.util.Random
 import kotlin.test.Test

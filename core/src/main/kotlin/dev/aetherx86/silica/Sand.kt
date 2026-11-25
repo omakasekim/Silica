@@ -1,4 +1,4 @@
-package dev.aetherx86.silica
+package dev.omakasekim.silica
 
 /** Materials, stored in the low bits of a packed cell. */
 object Material {

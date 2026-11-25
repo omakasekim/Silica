@@ -1,9 +1,9 @@
-package dev.aetherx86.silica.app
+package dev.omakasekim.silica.app
 
-import dev.aetherx86.silica.HashLife
-import dev.aetherx86.silica.Patterns
-import dev.aetherx86.silica.Rle
-import dev.aetherx86.silica.Rule
+import dev.omakasekim.silica.HashLife
+import dev.omakasekim.silica.Patterns
+import dev.omakasekim.silica.Rle
+import dev.omakasekim.silica.Rule
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.PrintStream

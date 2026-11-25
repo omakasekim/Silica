@@ -1,14 +1,14 @@
-package dev.aetherx86.silica.app
+package dev.omakasekim.silica.app
 
-import dev.aetherx86.silica.BitLife
-import dev.aetherx86.silica.Edge
-import dev.aetherx86.silica.HashLife
-import dev.aetherx86.silica.LifeGrid
-import dev.aetherx86.silica.Patterns
-import dev.aetherx86.silica.Rle
-import dev.aetherx86.silica.RlePattern
-import dev.aetherx86.silica.Rule
-import dev.aetherx86.silica.SandWorld
+import dev.omakasekim.silica.BitLife
+import dev.omakasekim.silica.Edge
+import dev.omakasekim.silica.HashLife
+import dev.omakasekim.silica.LifeGrid
+import dev.omakasekim.silica.Patterns
+import dev.omakasekim.silica.Rle
+import dev.omakasekim.silica.RlePattern
+import dev.omakasekim.silica.Rule
+import dev.omakasekim.silica.SandWorld
 import java.awt.image.BufferedImage
 import java.io.File
 import java.io.PrintStream

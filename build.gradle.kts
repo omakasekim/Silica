@@ -3,7 +3,7 @@ plugins {
 }
 
 allprojects {
-    group = "dev.aetherx86.silica"
+    group = "dev.omakasekim.silica"
     version = "0.2.0"
     repositories { mavenCentral() }
 }

@@ -19,7 +19,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("dev.aetherx86.silica.app.MainKt")
+    mainClass.set("dev.omakasekim.silica.app.MainKt")
     applicationName = "silica"
 }
 
