@@ -33,9 +33,12 @@ internal val USAGE = """
                                             advance with Hashlife by 2^N or by any count
       rle [--pattern NAME | --rle FILE] [--rule RULE]
                                             print a pattern as canonical RLE
+      classify [--pattern NAME | --rle FILE] [--rule RULE] [--max-generations N] [--max-cells N] [--json]
+                                            classify periodicity, spaceship velocity, or extinction
       bench [--quick] [--json]              time every engine on fixed workloads
 
-    patterns: glider, pulsar, gosper, rpentomino, acorn, diehard
+    patterns: glider, blinker, block, beacon, toad, lwss, pentadecathlon, replicator,
+              pulsar, gosper, rpentomino, acorn, diehard
     rules: B3/S23 notation, or the older S/B form such as 23/36
 """.trimIndent()
 
@@ -165,6 +168,10 @@ internal fun run(args: List<String>, out: PrintStream, err: PrintStream): Int {
                 out,
             )
             "rle" -> runRle(Options.parse(rest, setOf("pattern", "rle", "rule")), out)
+            "classify" -> runClassify(
+                Options.parse(rest, setOf("pattern", "rle", "rule", "max-generations", "max-cells"), setOf("json")),
+                out,
+            )
             "bench" -> runBench(Options.parse(rest, emptySet(), setOf("json", "quick")), out)
             "help", "--help", "-h" -> out.println(USAGE)
             else -> {

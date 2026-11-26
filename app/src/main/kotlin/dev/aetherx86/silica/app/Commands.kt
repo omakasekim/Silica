@@ -4,6 +4,8 @@ import dev.omakasekim.silica.BitLife
 import dev.omakasekim.silica.Edge
 import dev.omakasekim.silica.HashLife
 import dev.omakasekim.silica.LifeGrid
+import dev.omakasekim.silica.PatternClassifier
+import dev.omakasekim.silica.PatternOutcome
 import dev.omakasekim.silica.Patterns
 import dev.omakasekim.silica.Rle
 import dev.omakasekim.silica.RlePattern
@@ -67,6 +69,13 @@ internal class Options private constructor(
 
 internal fun patternNamed(name: String): String = when (name) {
     "glider" -> Patterns.GLIDER
+    "blinker" -> Patterns.BLINKER
+    "block" -> Patterns.BLOCK
+    "beacon" -> Patterns.BEACON
+    "toad" -> Patterns.TOAD
+    "lwss" -> Patterns.LWSS
+    "pentadecathlon" -> Patterns.PENTADECATHLON
+    "replicator" -> Patterns.REPLICATOR
     "pulsar" -> Patterns.PULSAR
     "gosper" -> Patterns.GOSPER_GUN
     "rpentomino" -> Patterns.R_PENTOMINO
@@ -277,6 +286,68 @@ internal fun runRle(options: Options, out: PrintStream) {
     val pattern = loadPattern(options)
     val comments = listOfNotNull(pattern.name) + pattern.comments
     out.print(Rle.write(pattern.cells, ruleFor(options, pattern), comments))
+}
+
+/** Classifies a pattern as extinct, still life, oscillator, spaceship, or unsettled. */
+internal fun runClassify(options: Options, out: PrintStream) {
+    val maxGenerations = options.int("max-generations", PatternClassifier.DEFAULT_MAX_GENERATIONS, 0..100_000)
+    val maxCells = options.int("max-cells", PatternClassifier.DEFAULT_MAX_CELLS, 1..1_000_000)
+    val pattern = loadPattern(options)
+    val rule = ruleFor(options, pattern)
+    val started = System.nanoTime()
+    val result = PatternClassifier.classify(pattern.cells, rule, maxGenerations, maxCells)
+    val elapsed = (System.nanoTime() - started) / 1e9
+    if (options.flag("json")) {
+        val map = linkedMapOf<String, Any?>(
+            "command" to "classify",
+            "rule" to result.rule.notation,
+            "seconds" to elapsed,
+        )
+        when (val o = result.outcome) {
+            is PatternOutcome.Extinct -> {
+                map["kind"] = "extinct"
+                map["generation"] = o.generation
+            }
+            is PatternOutcome.StillLife -> {
+                map["kind"] = "still_life"
+                map["onset"] = o.onset
+                map["period"] = 1
+                map["population"] = o.population
+            }
+            is PatternOutcome.Oscillator -> {
+                map["kind"] = "oscillator"
+                map["onset"] = o.onset
+                map["period"] = o.period
+                map["population"] = o.population
+            }
+            is PatternOutcome.Spaceship -> {
+                map["kind"] = "spaceship"
+                map["onset"] = o.onset
+                map["period"] = o.period
+                map["dx"] = o.dx
+                map["dy"] = o.dy
+                map["velocity"] = o.velocity
+                map["population"] = o.population
+            }
+            is PatternOutcome.Unsettled -> {
+                map["kind"] = "unsettled"
+                map["generations"] = o.generations
+                map["population"] = o.population
+            }
+        }
+        out.println(Json.write(map))
+        return
+    }
+    out.println("rule: ${result.rule.notation}")
+    when (val o = result.outcome) {
+        is PatternOutcome.Extinct -> out.println("kind: extinct at generation ${o.generation}")
+        is PatternOutcome.StillLife -> out.println("kind: still life (onset ${o.onset}, population ${o.population})")
+        is PatternOutcome.Oscillator -> out.println("kind: oscillator (period ${o.period}, onset ${o.onset}, population ${o.population})")
+        is PatternOutcome.Spaceship -> out.println(
+            "kind: spaceship (period ${o.period}, displacement (${o.dx}, ${o.dy}), velocity ${o.velocity}, onset ${o.onset}, population ${o.population})",
+        )
+        is PatternOutcome.Unsettled -> out.println("kind: unsettled after ${o.generations} generations (population ${o.population})")
+    }
 }
 
 internal data class BenchResult(val name: String, val work: String, val seconds: Double, val rate: Double, val unit: String)

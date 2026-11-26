@@ -167,6 +167,30 @@ class CliTest {
     }
 
     @Test
+    fun classifyReportsSpaceshipsOscillatorsAndExtinction() {
+        val glider = cli("classify", "--pattern", "glider", "--json")
+        assertEquals(0, glider.status, glider.err)
+        assertEquals("classify", field(glider.out, "command"))
+        assertEquals("spaceship", field(glider.out, "kind"))
+        assertEquals("4", field(glider.out, "period"))
+        assertEquals("c/4 diagonal", field(glider.out, "velocity"))
+
+        val lwss = cli("classify", "--pattern", "lwss", "--json")
+        assertEquals(0, lwss.status, lwss.err)
+        assertEquals("spaceship", field(lwss.out, "kind"))
+        assertEquals("c/2 orthogonal", field(lwss.out, "velocity"))
+
+        val penta = cli("classify", "--pattern", "pentadecathlon")
+        assertEquals(0, penta.status, penta.err)
+        assertTrue("oscillator (period 15" in penta.out, penta.out)
+
+        val diehard = cli("classify", "--pattern", "diehard", "--json")
+        assertEquals(0, diehard.status, diehard.err)
+        assertEquals("extinct", field(diehard.out, "kind"))
+        assertEquals("130", field(diehard.out, "generation"))
+    }
+
+    @Test
     fun hostileRleFilesAreRejected() {
         val file = File(tempDir(), "hostile.rle")
         file.writeText("x = 1, y = 1\n" + "999999b".repeat(2000) + "o!")

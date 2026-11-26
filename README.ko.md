@@ -41,6 +41,17 @@ Apple Silicon 단일 스레드 기준 측정치:
 
 버그 수정 및 보안 패치는 `0.0.X`, 신규 기능 및 플랫폼 지원 추가는 `0.X.0`을 증가시킵니다. 세부 사항은 [CHANGELOG.md](CHANGELOG.md)를 참조하십시오.
 
+## 0.3.0 변경 사항
+
+- 무한 평면 기반 `HashLife`를 활용한 정확한 이동 불변 패턴 동역학 분류기(`PatternClassifier`)를 추가했습니다. 임의의 비-`B0` 규칙에서 유한 패턴의 소멸(`Extinct`), 정지체(`StillLife`), 진동자(`Oscillator`), 우주선(`Spaceship`, 주기·변위·기약 속도 예: `c/4 diagonal`, `c/2 orthogonal`) 및 미안정(`Unsettled`) 상태를 해시 충돌 오탐 없이 판별합니다.
+- 새 CLI 명령 `silica classify [--pattern NAME | --rle FILE] [--rule RULE] [--max-generations N] [--json]` 추가.
+- 내장 패턴 카탈로그 확장: `BEACON`, `TOAD`, `LWSS`(경량 우주선), `PENTADECATHLON`(주기 15 진동자), HighLife `REPLICATOR`.
+
+```sh
+silica classify --pattern lwss --json
+silica classify --pattern pentadecathlon
+```
+
 ## 0.2.0 변경 사항
 
 - 세 엔진 모두 임의의 라이프 계열 `B/S` 규칙을 지원합니다. `BitLife`는 콘웨이 규칙 전용 경로를 유지하고, 그 밖의 규칙은 4비트 비트 슬라이스 이웃 수로 계산합니다. `HashLife`는 무한 평면에서 표현할 수 없는 `B0` 규칙을 거부합니다.

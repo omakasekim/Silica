@@ -70,8 +70,16 @@ silica hashlife --rle highlife.rle --generations 1000000000000000000000000000000
 silica rle --pattern glider --rule 23/36
 # x = 3, y = 3, rule = B36/S23
 # bo$2bo$3o!
+silica classify --pattern lwss --json
+# {"command":"classify","rule":"B3/S23",...,"kind":"spaceship","onset":0,"period":4,"dx":-2,"dy":0,"velocity":"c/2 orthogonal","population":9}
+silica classify --pattern pentadecathlon
+# rule: B3/S23 / kind: oscillator (period 15, onset 0, population 12)
 silica bench --json
 ```
+
+### Pattern Dynamics Classifier (`v0.3.0`)
+
+`PatternClassifier` steps finite patterns on `HashLife`'s unbounded plane and normalizes each generation's bounding box with exact coordinate equality to detect periodicity and translation velocity with zero hash-collision false positives. It distinguishes `Extinct`, `StillLife`, `Oscillator`, `Spaceship` (`c/4 diagonal`, `c/2 orthogonal`, oblique), and `Unsettled` outcomes across any non-`B0` life-like rule, and ships with built-in patterns including `glider`, `lwss`, `blinker`, `block`, `beacon`, `toad`, `pulsar`, `pentadecathlon`, `replicator`, `gosper`, `rpentomino`, `acorn`, and `diehard`.
 
 `--rule` overrides the rule named in an RLE file, which overrides Conway's. `--every N` samples
 the population every `N` generations, up to 10,000 samples. `bench` times one fixed workload per

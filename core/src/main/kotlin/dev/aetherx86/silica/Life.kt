@@ -977,6 +977,14 @@ object Patterns {
     const val GLIDER = "bob$2bo$3o!"
     const val BLINKER = "3o!"
     const val BLOCK = "2o$2o!"
+    const val BEACON = "2o$2o$2b2o$2b2o!"
+    const val TOAD = "b3o$3o!"
+    /** Lightweight spaceship: period 4, translates (-2, 0) per period (c/2 orthogonal). */
+    const val LWSS = "bo2bo\$o\$o3bo\$4o!"
+    /** Period-15 oscillator. */
+    const val PENTADECATHLON = "2bo4bo\$2ob4ob2o\$2bo4bo!"
+    /** HighLife (B36/S23) replicator: doubles itself every 12 generations. */
+    const val REPLICATOR = "2b3o\$bo2bo\$o3bo\$o2bo\$3o!"
     const val R_PENTOMINO = "b2o\$2o\$bo!"
     const val PULSAR = "2b3o3b3o2\$o4bobo4bo\$o4bobo4bo\$o4bobo4bo\$2b3o3b3o2\$2b3o3b3o\$" +
         "o4bobo4bo\$o4bobo4bo\$o4bobo4bo2\$2b3o3b3o!"

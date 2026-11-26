@@ -3,6 +3,18 @@
 Versions follow this rule: a bug or security fix increments `0.0.X`, and new functionality
 or new platform support increments `0.X.0`.
 
+## [0.3.0] - 2026-11-26
+
+- Exact, translation-invariant `PatternClassifier` backed by `HashLife` on an unbounded plane:
+  classifies any finite pattern under any non-`B0` life-like rule as `Extinct`, `StillLife`,
+  `Oscillator`, `Spaceship` (with exact period, `(dx, dy)` displacement, and reduced velocity such
+  as `c/4 diagonal` or `c/2 orthogonal`), or `Unsettled`.
+- New CLI command `silica classify [--pattern NAME | --rle FILE] [--rule RULE] [--max-generations N] [--max-cells N] [--json]`.
+- Expanded built-in `Patterns` catalog with `BEACON`, `TOAD`, `LWSS` (lightweight spaceship),
+  `PENTADECATHLON` (period-15 oscillator), and HighLife `REPLICATOR`.
+- Upgraded Gradle wrapper to `9.9.2`, `actions/setup-java` to `6.3.0`, and enabled automatic
+  `main` push & pull-request CI and repository guard triggers.
+
 ## [0.2.0] - 2026-11-20
 
 - Every Life engine now runs any life-like `B/S` rule. `BitLife` keeps its Conway shortcut and
